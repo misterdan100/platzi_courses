@@ -12,5 +12,6 @@
     "historia"
   ],
   "author": "Daniel Caceres <danielmca60@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "type": "module"
 }
