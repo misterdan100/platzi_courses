@@ -1,8 +1,9 @@
 import { XCircleIcon } from "@heroicons/react/24/outline";
+import { Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { ShoppingCartContext } from "../../Context";
 import { OrderCard } from "../OrderCard";
-import { totalPrince } from "../../Utils";
+import { totalPrince, formatDate, formatCurrency } from "../../Utils";
 
 const CheckoutSideMenu = () => {
   const {
@@ -11,11 +12,26 @@ const CheckoutSideMenu = () => {
     productToShow,
     cartProducts,
     setCartProducts,
+    order,
+    setOrder,
   } = useContext(ShoppingCartContext);
 
   const handleDelete = (id) => {
     const filteredProducts = cartProducts.filter((product) => product.id != id);
     setCartProducts(filteredProducts);
+  };
+
+  const handleCheckout = () => {
+    //* Object with order summary
+    const orderToAdd = {
+      date: formatDate(new Date(Date.now())),
+      products: cartProducts,
+      totalProducts: cartProducts.length,
+      totalPrice: totalPrince(cartProducts),
+    };
+    setOrder([...order, orderToAdd]);
+    setCartProducts([]);
+    closeCheckoutSideMenu();
   };
 
   return (
@@ -28,10 +44,10 @@ const CheckoutSideMenu = () => {
     >
       <div className="flex justify-between items-center pb-6 px-2">
         <h2 className="font-medium text-xl">
-          My Order {' '}
+          My Order{" "}
           <span className="font-normal text-base">
             ({cartProducts.length}{" "}
-            {cartProducts.length > 1 ? "products" : "product"})
+            {cartProducts.length != 1 ? "products" : "product"})
           </span>
         </h2>
         <XCircleIcon
@@ -59,11 +75,20 @@ const CheckoutSideMenu = () => {
         ))}
       </div>
 
-      <h2 className="flex justify-between mt-2 font-medium text-xl">
+      {/* Total Price section */}
+      <h2 className="flex justify-between my-2 font-medium text-xl">
         <span>Total Price: </span>
-        <span className="mr-8">$ {totalPrince(cartProducts)}</span>
-        
+        <span className="mr-8">{formatCurrency(totalPrince(cartProducts))}</span>
       </h2>
+
+      <Link to={`${cartProducts.length != 0 ? '/my-orders/last' : ''}`}>
+        <button
+          className={`w-full bg-black py-3 text-white rounded-lg ${cartProducts.length == 0 && 'opacity-70'}`}
+          onClick={() => cartProducts.length && handleCheckout()}
+        >
+          Checkout
+        </button>
+      </Link>
     </aside>
   );
 };
