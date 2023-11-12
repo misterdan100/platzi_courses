@@ -13,7 +13,10 @@ const OrderCard = props => {
             </div>
 
             <div className="flex items-center gap-2">
-                <p className="font-medium text-lg">$ {price}</p>
+                <p className="font-medium text-lg">{price.toLocaleString('en-US', {
+                    style: 'currency',
+                    currency: 'USD'
+                })}</p>
                 <XMarkIcon className="h-6 w-6 text-black cursor-pointer hover:text-red-500" onClick={() => handleDelete(id)}/>
             </div>
 
