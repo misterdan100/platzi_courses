@@ -1,5 +1,3 @@
-import { ShoppingCartContext } from "../Context";
-
 /**
  * Calculates the total price of prices in an Array
  * @param {Array} productList with prices
@@ -29,8 +27,13 @@ const formatCurrency = (value) => {
       }
     const newValue = value.toLocaleString('en-US', settings)
     return newValue
+};
+
+const idGenerator = () => {
+    const random = Math.random().toString(36).substr(2);
+    const fecha = Date.now().toString(36);
+    return random + fecha;
 }
 
 
-
-export { totalPrince, formatDate, formatCurrency };
+export { totalPrince, formatDate, formatCurrency, idGenerator };

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { ShoppingCartContext } from "../../Context";
 import { OrderCard } from "../OrderCard";
-import { totalPrince, formatDate, formatCurrency } from "../../Utils";
+import { totalPrince, formatDate, formatCurrency, idGenerator } from "../../Utils";
 
 const CheckoutSideMenu = () => {
   const {
@@ -24,10 +24,11 @@ const CheckoutSideMenu = () => {
   const handleCheckout = () => {
     //* Object with order summary
     const orderToAdd = {
-      date: formatDate(new Date(Date.now())),
+      date: formatDate(new Date()),
       products: cartProducts,
       totalProducts: cartProducts.length,
       totalPrice: totalPrince(cartProducts),
+      id: idGenerator(),
     };
     setOrder([...order, orderToAdd]);
     setCartProducts([]);
