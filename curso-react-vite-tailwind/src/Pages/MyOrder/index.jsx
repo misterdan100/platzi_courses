@@ -13,7 +13,6 @@ function MyOrder() {
   const currentPath = window.location.pathname; //* get current url
   const urlArray = currentPath.split("/"); //* create array from url separated each /
   const idPath = urlArray[urlArray.length - 1]; //* select the last element from Array
-  console.log("idpath", idPath);
 
   //* Evaluate if there are orders in the object order, if do, take the las order
   // const lastOrder = order.length ? order[order.length - 1].products : [];
@@ -24,13 +23,12 @@ function MyOrder() {
   };
 
   const selectById = (array, id) => {
-    const selected = array.filter((item) => item.id === id);
-    return selected[0];
+      const selected = array.filter((item) => item.id === id);
+      return selected[0];
+
   };
 
-  const orderToShow =
-    idPath === "last" ? selectLast(order) : selectById(order, idPath);
-
+  const orderToShow = idPath === "last" ? selectLast(order) : selectById(order, idPath);
   return (
     <Layout>
       <div className="flex items-center w-80 relative justify-center mb-6">
@@ -39,7 +37,7 @@ function MyOrder() {
         </Link>
         <div className="flex flex-col justify-center items-center">
           <h1>My Order</h1>
-          <p className="text-sm text-gray-400">{`( ID: ${orderToShow.id} )`}</p>
+          <p className="text-sm text-gray-400">{(idPath !== 'my-order') && `( ID: ${orderToShow.id} )`}</p>
         </div>
       </div>
 
@@ -51,9 +49,9 @@ function MyOrder() {
                     [&::-webkit-scrollbar-thumb]:rounded-full
                     [&::-webkit-scrollbar-thumb]:bg-gray-300"
       >
-        {orderToShow.products?.map((product) => (
+        {(idPath !== 'my-order') && orderToShow.products?.map((product) => (
           <OrderCard
-            key={product.id}
+            key={product.id} 
             id={product.id}
             title={product.title}
             price={product.price}
@@ -64,7 +62,7 @@ function MyOrder() {
 
       <h2 className="flex justify-between my-2 font-medium text-xl">
         { order.length ? (
-          <span>Total Price: {formatCurrency(orderToShow.totalPrice)}</span>
+          <span>Total Price: {(idPath !== 'my-order') && formatCurrency(orderToShow.totalPrice)}</span>
           ) : (
           <span>No articulos</span>
         )}

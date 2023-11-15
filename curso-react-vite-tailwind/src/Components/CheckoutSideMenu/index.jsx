@@ -28,7 +28,7 @@ const CheckoutSideMenu = () => {
       products: cartProducts,
       totalProducts: cartProducts.length,
       totalPrice: totalPrince(cartProducts),
-      id: idGenerator(),
+      id: idGenerator().slice(0,4),
     };
     setOrder([...order, orderToAdd]);
     setCartProducts([]);
