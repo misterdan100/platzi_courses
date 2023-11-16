@@ -50,16 +50,13 @@ const ShoppingCartProvider = ({ children }) => {
     }
 
     const filterBy = ( searchType, items, searchByTitle, searchByCategory ) => {
-        console.log('searchType', searchType);
         if(searchType === 'BY_TITLE') {
             return filteredItemsByTitle(items, searchByTitle)
         }
         if(searchType === 'BY_CATEGORY') {
-            console.log(searchByCategory);
             return filteredItemsByCategory(items, searchByCategory)
         }
         if(searchType === 'BY_TITLE_AND_CATEGORY') {
-            console.log('ambos');
             return filteredItemsByCategory(items, searchByTitle).filter( item => item.category.toLowerCase().includes(searchByCategory.toLowerCase()))
         }
         if(!searchType) {
