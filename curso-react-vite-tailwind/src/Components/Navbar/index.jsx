@@ -11,6 +11,7 @@ const Navbar = () => {
           openCheckoutSideMenu,
           isCheckoutSideMenuOpen,
           closeCheckoutSideMenu,
+          setSearchByCategory,
          } =
     useContext(ShoppingCartContext);
   return (
@@ -22,6 +23,7 @@ const Navbar = () => {
         <li>
           <NavLink
             to="/"
+            onClick={() => setSearchByCategory()}
             className={({ isActive }) => (isActive ? activeStyle : undefined)}
           >
             All
@@ -30,6 +32,7 @@ const Navbar = () => {
         <li>
           <NavLink
             to="/clothes"
+            onClick={() => setSearchByCategory('clothing')}
             className={({ isActive }) => (isActive ? activeStyle : undefined)}
           >
             Clothes
@@ -38,6 +41,7 @@ const Navbar = () => {
         <li>
           <NavLink
             to="/electronics"
+            onClick={() => setSearchByCategory('electronics')}
             className={({ isActive }) => (isActive ? activeStyle : undefined)}
           >
             Electronics
@@ -46,6 +50,7 @@ const Navbar = () => {
         <li>
           <NavLink
             to="/furnitures"
+            onClick={() => setSearchByCategory('furnitures')}
             className={({ isActive }) => (isActive ? activeStyle : undefined)}
           >
             Furnitures
@@ -54,6 +59,7 @@ const Navbar = () => {
         <li>
           <NavLink
             to="/toys"
+            onClick={() => setSearchByCategory('toys')}
             className={({ isActive }) => (isActive ? activeStyle : undefined)}
           >
             Toys
@@ -62,6 +68,7 @@ const Navbar = () => {
         <li>
           <NavLink
             to="/others"
+            onClick={() => setSearchByCategory('others')}
             className={({ isActive }) => (isActive ? activeStyle : undefined)}
           >
             Others

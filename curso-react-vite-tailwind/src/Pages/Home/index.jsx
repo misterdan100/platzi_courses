@@ -31,7 +31,7 @@ function Home() {
       }
     } else {
       return (
-        items?.map( item => (
+        filtereditems?.map( item => (
           <Card 
             key={item.id}
             data={item}
