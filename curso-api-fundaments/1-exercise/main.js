@@ -1,3 +1,9 @@
+const api = axios.create({
+    baseURL: 'https://api.thecatapi.com/v1'
+})
+api.defaults.headers.common['x-api-key'] = 'live_XLY3k9b7I2UVwm6d2CeG4FMgRjALsqNwOUQtznZwyBIB9oZS6Q5VAunAJ2N4PNUY'
+
+
 const imgSRC = document.querySelector('img')
 const randomButton = document.querySelector('button')
 const randomCatsSection = document.querySelector('#random-container')
@@ -106,23 +112,28 @@ async function loadFavoriteCats(url, sectionDiv) {
 }
 
 async function addFavorites(e) {
-    const rawBody = JSON.stringify({
-        "image_id": `${e.target.id}`,
-        "sub_id":"user-123"
+    const res = await api.post('/favourites', {
+        image_id: `${e.target.id}`,
+        sub_id: "user-123"
     })
 
-    const newFavourite = await fetch(
-        "https://api.thecatapi.com/v1/favourites", 
-            {
-                method: 'POST',
-                headers: { 'x-api-key': 'live_XLY3k9b7I2UVwm6d2CeG4FMgRjALsqNwOUQtznZwyBIB9oZS6Q5VAunAJ2N4PNUY',
-                'content-type': 'application/json'
-            } ,
-                body: rawBody
-            }
-        )
-    const response = await newFavourite.json()
-    alert(response.message)
+    // const rawBody = JSON.stringify({
+    //     "image_id": `${e.target.id}`,
+    //     "sub_id":"user-123"
+    // })
+
+    // const newFavourite = await fetch(
+    //     "https://api.thecatapi.com/v1/favourites", 
+    //         {
+    //             method: 'POST',
+    //             headers: { 'x-api-key': 'live_XLY3k9b7I2UVwm6d2CeG4FMgRjALsqNwOUQtznZwyBIB9oZS6Q5VAunAJ2N4PNUY',
+    //             'content-type': 'application/json'
+    //         } ,
+    //             body: rawBody
+    //         }
+    //     )
+    // const response = await newFavourite.json()
+    alert(res.data.message)
     loadFavoriteCats(favoriteUrlAPI, favoriteCatsSection)
 }
 
